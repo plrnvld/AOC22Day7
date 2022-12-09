@@ -29,7 +29,6 @@ public class DirNode
 
 class Program 
 {   
-
     public static void Main (string[] args) 
     {
         var root = ReadFilesystem("Input.txt");
