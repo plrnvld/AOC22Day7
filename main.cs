@@ -33,12 +33,16 @@ class Program
     {
         var root = ReadFilesystem("Input.txt");
 
-        var sumLessThan100K = root.FlattenDirs()
-            .Select(d => d.SumSize)
-            .Where(s => s <= 100_000)
-            .Sum();
+        var used = root.SumSize;
+        var needed = 30_000_000L;
+        var free = 70_000_000L - used;
+        var toClear = needed - free;
 
-        Console.WriteLine(sumLessThan100K);
+        var sizesForDeletion = root.FlattenDirs().Select(d => d.SumSize).Where(s => s >= toClear).OrderBy(x => x);
+
+        Console.WriteLine($"Used: {used}, clear: {toClear}");
+
+        Console.WriteLine($"Lowest {sizesForDeletion.First()}");
     }
 
     static DirNode ReadFilesystem(string fileName)
